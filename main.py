@@ -3,6 +3,7 @@ from telebot import types
 
 from secret_token import token
 from src.menu import get_back_menu
+from src.free_scetches import get_free_scetches, get_free_scetches_2, get_free_scetches_3
 from src.my_works import get_my_works, get_my_works_2, get_my_works_3
 
 bot = telebot.TeleBot(token)
@@ -58,20 +59,28 @@ def get_text_messages(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
+    # main
     if call.data == "my_works":
         get_my_works(call.message)
     elif call.data == "free_scetches":
-         pass
+         get_free_scetches(call.message)
     elif call.data == "sign_up":
          pass
 
     elif call.data == "back":
         get_back_menu(call.message)
 
+    # my_works
     elif call.data == "next":
         get_my_works_2(call.message)
     elif call.data == "next_2":
         get_my_works_3(call.message)
+
+    # free_scetches
+    elif call.data == "next_3":
+        get_free_scetches_2(call.message)
+    elif call.data == "next_4":
+        get_free_scetches_3(call.message)
 
 
 bot.polling(none_stop=True, interval=0)
